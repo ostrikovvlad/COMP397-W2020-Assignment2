@@ -29,6 +29,10 @@ public:
 private:
 	// Game Objects
 	Label* m_pStartLabel;
+	Label* m_pStartLabel2;
+	Label* m_pStartLabel3;
+	Label* m_pStartLabel4;
+	Label* m_pStartLabel5;
 	StartButton* m_pStartButton;
 	//Ocean* m_pOcean;
 	Background* m_pBackground;

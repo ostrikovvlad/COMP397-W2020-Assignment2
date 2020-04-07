@@ -30,8 +30,17 @@ public:
 	int getLives() const;
 	void setLives(int new_lives);
 
-	Color getColor() const;
+	Color getColor() const;	
 	void setColor(Color new_color);
+
+	int getBananas() const;
+	void setBananas(int new_bananas);
+
+	int getApples() const;
+	void setApples(int new_apples);
+
+	int getMelons() const;
+	void setMelons(int new_melons);
 	
 	
 private:
@@ -41,9 +50,14 @@ private:
 	int m_score{};
 	int m_lives{};
 	Color m_color{};
+	int m_bananas{};
+	int m_apples{};
+	int m_melons{};
+	
 
 	Label* m_pLivesLabel{};
 	Label* m_pScoreLabel{};
+	Label* m_pFruitsLabel{};
 	
 	static ScoreBoardManager* m_pInstance;
 };

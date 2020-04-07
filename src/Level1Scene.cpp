@@ -17,6 +17,8 @@ void Level1Scene::draw()
 	m_pBackground->draw();
 	m_pMonk->draw();
 	m_pRock->draw();
+	m_pFruit->draw();
+	m_pCheck->draw();
 	for (int i = 0; i < 2; i++)
 	{
 		clouds[i]->draw();
@@ -42,9 +44,24 @@ void Level1Scene::update()
 	m_pBackground->update();
 	m_pMonk->update();
 	m_pRock->update();
+	m_pFruit->update();
+	m_pCheck->update();
+	if(m_pMonk->getColor()!=NO_COLOR)
+	{
+		m_pCheck->setAlpha(255);
+	}
 	for (int i = 0; i < 2; i++)
 	{
 		clouds[i]->update();
+		if(m_pMonk->getColor() != clouds[i]->getColor())
+		{
+			CollisionManager::squaredRadiusCheck(m_pMonk, clouds[i]);
+		}
+	}
+	CollisionManager::squaredRadiusCheck(m_pMonk, m_pRock);
+	if(CollisionManager::squaredRadiusCheck(m_pMonk, m_pFruit))
+	{
+		m_pFruit->reset();
 	}
 	
 	//m_pOcean->update();
@@ -113,22 +130,64 @@ void Level1Scene::handleEvents()
 				TheGame::Instance()->quit();
 				break;
 			case SDLK_1:
-				TheGame::Instance()->changeSceneState(SceneState::START_SCENE);
+				if (ScoreBoardManager::Instance()->getBananas() >= 1)
+				{
+					ScoreBoardManager::Instance()->setBananas(ScoreBoardManager::Instance()->getBananas() - 1);
+					ScoreBoardManager::Instance()->setColor(YELLOW);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
+				//TheGame::Instance()->changeSceneState(SceneState::START_SCENE);
 				break;
 			case SDLK_2:
+				if (ScoreBoardManager::Instance()->getApples() >= 1)
+				{
+					ScoreBoardManager::Instance()->setApples(ScoreBoardManager::Instance()->getApples() - 1);
+					ScoreBoardManager::Instance()->setColor(RED);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
 				TheGame::Instance()->changeSceneState(SceneState::END_SCENE);
+				break;
+			case SDLK_3:
+				if (ScoreBoardManager::Instance()->getMelons() >= 1)
+				{
+					ScoreBoardManager::Instance()->setMelons(ScoreBoardManager::Instance()->getMelons() - 1);
+					ScoreBoardManager::Instance()->setColor(GREEN);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
 				break;
 			
 
 				/************************************************************************/
 			case SDLK_w:
-				
+				if(ScoreBoardManager::Instance()->getMelons() >= 1)
+				{
+					ScoreBoardManager::Instance()->setMelons(ScoreBoardManager::Instance()->getMelons() - 1);
+					ScoreBoardManager::Instance()->setColor(GREEN);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
+
 				break;
 			case SDLK_s:
 				
 				break;
 			case SDLK_a:
+				if (ScoreBoardManager::Instance()->getApples() >= 1)
+				{
+					ScoreBoardManager::Instance()->setApples(ScoreBoardManager::Instance()->getApples() - 1);
+					ScoreBoardManager::Instance()->setColor(RED);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
+
 				//m_pPlane->move(LEFT);
+				break;
+			case SDLK_b:
+				if (ScoreBoardManager::Instance()->getBananas() >= 1)
+				{
+					ScoreBoardManager::Instance()->setBananas(ScoreBoardManager::Instance()->getBananas() - 1);
+					ScoreBoardManager::Instance()->setColor(YELLOW);
+					ScoreBoardManager::Instance()->setScore(ScoreBoardManager::Instance()->getScore() + 5);
+				}
+
 				break;
 			case SDLK_d:
 				//m_pPlane->move(RIGHT);
@@ -185,10 +244,16 @@ void Level1Scene::start()
 	addChild(m_pMonk);
 	m_pRock = new Rock();
 	addChild(m_pRock);
+	m_pFruit = new Fruit();
+	addChild(m_pFruit);
 	for(int i = 0; i < 2; i++)
 	{
 		clouds[i] = new Cloud();
+		addChild(clouds[i]);
 	}
+
+	m_pCheck = new ColorCheck();
+	addChild(m_pCheck);
 
 	ScoreBoardManager::Instance()->Start();
 }

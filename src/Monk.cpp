@@ -31,7 +31,7 @@ Monk::Monk()
 
 	setIsColliding(false);
 	setType(MONK);
-	setPosition(320.0f, 400.0f);
+	setPosition(200.0f, 400.0f);
 	
 	m_id = "monk";
 	m_frameNumber = 8;
@@ -49,7 +49,7 @@ void Monk::draw()
 	const int xComponent = getPosition().x;
 	const int yComponent = getPosition().y;
 
-	if(m_id == "monk")
+	if(m_isGrounded)
 	{
 			TheTextureManager::Instance()->drawFrame(m_id, xComponent,
 		yComponent, 64, 64, m_currentRow,
@@ -68,15 +68,39 @@ void Monk::update()
 	m_color = ScoreBoardManager::Instance()->getColor();
 
 	
-	if(m_id == "monk")
+	if(m_isGrounded)
 	{
+		if (m_color == RED)
+		{
+			m_id = "monkR";
+		}
+		else if (m_color == GREEN)
+		{
+			m_id = "monkG";
+		}
+		else if (m_color == YELLOW)
+		{
+			m_id = "monkY";
+		}
 		auto size = TheTextureManager::Instance()->getTextureSize("monk");
 		setWidth(size.x);
 		setHeight(size.y);
 		m_frameNumber = 8;
 	}
-	else if (m_id == "jump")
+	else if (m_isJumping)
 	{
+		if (m_color == RED)
+		{
+			m_id = "jumpR";
+		}
+		else if (m_color == GREEN)
+		{
+			m_id = "jumpG";
+		}
+		else if (m_color == YELLOW)
+		{
+			m_id = "jumpY";
+		}
 		auto size = TheTextureManager::Instance()->getTextureSize("jump");
 		setWidth(size.x);
 		setHeight(size.y);
@@ -134,7 +158,7 @@ Color Monk::getColor()
 
 void Monk::setColor(Color color)
 {
-	m_color = NO_COLOR;
+	m_color = color;
 }
 
 void Monk::jump()

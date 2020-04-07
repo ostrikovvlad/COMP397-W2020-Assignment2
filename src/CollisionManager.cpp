@@ -38,6 +38,19 @@ bool CollisionManager::squaredRadiusCheck(GameObject* object1, GameObject* objec
 				TheSoundManager::Instance()->playSound("thunder", 0);
 				ScoreBoardManager::Instance()->setLives(ScoreBoardManager::Instance()->getLives() - 1);
 				break;
+			case ROCK:
+				std::cout << "Collision with ROCK!" << std::endl;
+				ScoreBoardManager::Instance()->setLives(ScoreBoardManager::Instance()->getLives() - 1);
+				break;
+			case BANANA:
+				ScoreBoardManager::Instance()->setBananas(ScoreBoardManager::Instance()->getBananas() + 1);
+				break;
+			case APPLE:
+				ScoreBoardManager::Instance()->setApples(ScoreBoardManager::Instance()->getApples() + 1);
+				break;
+			case WATERMELON:
+				ScoreBoardManager::Instance()->setMelons(ScoreBoardManager::Instance()->getMelons() + 1);
+				break;
 			default:
 				//std::cout << "Collision with unknown type!" << std::endl;
 				break;

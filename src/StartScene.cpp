@@ -17,8 +17,12 @@ StartScene::~StartScene()
 void StartScene::draw()
 {
 	//m_pOcean->draw();
-	m_pBackground->draw();
+	//m_pBackground->draw();
 	m_pStartLabel->draw();
+	m_pStartLabel2->draw();
+	m_pStartLabel3->draw();
+	m_pStartLabel4->draw();
+	m_pStartLabel5->draw();
 	m_pStartButton->draw();
 	
 }
@@ -26,14 +30,14 @@ void StartScene::draw()
 void StartScene::update()
 {
 	//m_pOcean->update();
-	m_pBackground->update();
+	//m_pBackground->update();
 	m_pStartButton->setMousePosition(m_mousePosition);
 	m_pStartButton->ButtonClick();
 }
 
 void StartScene::clean()
 {
-	delete m_pStartLabel;
+	//delete m_pStartLabel;
 	
 	removeAllChildren();
 }
@@ -107,15 +111,35 @@ void StartScene::start()
 	//m_pOcean = new Ocean();
 	//addChild(m_pOcean);
 	//
-	m_pBackground = new Background();
-	addChild(m_pBackground);
+	//m_pBackground = new Background();
+	//addChild(m_pBackground);
 
 	
 	SDL_Color black = { 0, 0, 0, 255 };
-	m_pStartLabel = new Label("Mail Pilot", "Dock51", 80, black, 
-		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 100.0f));
+	m_pStartLabel = new Label("Dodge rocks by jumping. To dodge clouds - eat fruit of the same color.", "Consolas", 14, black, 
+		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 30.0f));
 	m_pStartLabel->setParent(this);
 	addChild(m_pStartLabel);
+
+	m_pStartLabel2 = new Label("Press 1 or B to eat a banana - dodge of yellow clouds.", "Consolas", 14, black,
+		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 50.0f));
+	m_pStartLabel2->setParent(this);
+	addChild(m_pStartLabel2);
+
+	m_pStartLabel3 = new Label("Press 2 or A to eat an apple - dodge of red clouds.", "Consolas", 14, black,
+		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 70.0f));
+	m_pStartLabel3->setParent(this);
+	addChild(m_pStartLabel3);
+
+	m_pStartLabel4 = new Label("Press 3 or W to eat a watermelon - dodge of green clouds.", "Consolas", 14, black,
+		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 90.0f));
+	m_pStartLabel4->setParent(this);
+	addChild(m_pStartLabel4);
+
+	m_pStartLabel5 = new Label("Press SPACE for a jump.", "Consolas", 14, black,
+		glm::vec2(Config::SCREEN_WIDTH * 0.5f, 110.0f));
+	m_pStartLabel5->setParent(this);
+	addChild(m_pStartLabel5);
 
 	m_pStartButton = new StartButton();
 	m_pStartButton->setPosition(glm::vec2(Config::SCREEN_WIDTH * 0.5f, Config::SCREEN_HEIGHT * 0.5f));

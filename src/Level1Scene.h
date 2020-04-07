@@ -11,6 +11,8 @@
 #include "Background.h"
 #include "Monk.h"
 #include "Rock.h"
+#include "Fruit.h"
+#include "ColorCheck.h"
 
 class Level1Scene : public Scene
 {
@@ -44,7 +46,8 @@ private:
 	
 	// private data member
 	glm::vec2 m_mousePosition;
-	
+	Fruit* m_pFruit;
+	ColorCheck* m_pCheck;
 	
 };
 
