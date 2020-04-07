@@ -1,4 +1,4 @@
-# COMP397-W2020-Lesson6A
+# COMP397-W2020
 
-## Demo for Web Game Programming for Game Students @ Centennial
+## Assignment 2 of Vladislav Ostrikov
 "# COMP397-W2020-Assignment2" 
